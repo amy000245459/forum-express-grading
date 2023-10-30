@@ -1,30 +1,39 @@
 {{> restaurant-tabs route='topRestaurants'}}
 <h1>人氣餐廳</h1>
 <hr />
-<div class="column" style="text-align: center;">
+<div class="column">
   {{#each restaurants}}
-  <img class="card-img-left" src="{{this.image}}" alt="Restaurant Image ">
-  <div class="card text-center" style="width: 18rem;">
-  <div class="card-body">
-    <a href="/restaurants/{{this.id}}">
-    <h5 class="card-title">{{this.name}}</h5>
-    </a>
-    <span class="bg-secondary badge">收藏數{{this.favoritedCount}}</span>
-    <div class="col-md-8">
-    <p style="white-space: break-spaces;">{{restaurant.description}}</p>
+  <div class="card flex-row flex-wrap">
+
+  <div class="card-header border-0">
+    <img class="card-img-left" src="{{this.image}}" alt="Restaurant Image ">
   </div>
-    <p>
-        <a href="/restaurants/{{this.id}}" class="btn btn-primary">Show</a>
+  
+  <div class="card " style="width: 20rem;">
+    <div class="card-body">
+      
+      <a href="/restaurants/{{this.id}}">
+        <h5 class="card-title">{{this.name}}</h5>
+      </a>
+      <span class="bg-secondary badge" >收藏數{{this.favoritedCount}}</span>
+      <p style="white-space: break-spaces;">{{this.description}}</p>
+      <div class="d-flex">
+      <p>
+        <a href="/restaurants/{{this.id}}" class="btn btn-primary m-1">Show</a>
         {{#if this.isFavorited }}
-          <form action="/favorite/{{this.id}}?_method=DELETE" method="POST" style="display: contents;">
-            <button type="submit" class="btn btn-danger">移除最愛</button>
+          <form action="/favorite/{{this.id}}?_method=DELETE" method="POST">
+            <button type="submit" class="btn btn-danger m-1">移除最愛</button>
           </form>
         {{else}}
-          <form action="/favorite/{{this.id}}" method="POST" style="display: contents;">
-            <button type="submit" class="btn btn-primary">加入最愛</button>
+          <form action="/favorite/{{this.id}}" method="POST" >
+            <button type="submit" class="btn btn-primary m-1">加入最愛</button>
           </form>
         {{/if}}
       </p>
-    
+      </div>
+     
+    </div>
+  </div> 
   </div>
+{{/each}}
 </div>

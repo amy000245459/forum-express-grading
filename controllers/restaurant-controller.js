@@ -104,17 +104,19 @@ const restaurantController = {
     return Restaurant.findAll({
       include: [{ model: User, as: 'FavoritedUsers' }]
     })
-      .then(resaurants => {
-        resaurants = resaurants.map(resaurant => ({
+      .then(restaurants => {
+        console.log(req.user)
+        restaurants = restaurants.map(restaurant => ({
           // 整理格式
-          ...resaurant.toJSON(),
+          ...restaurant.toJSON(),
+          description: restaurant.description.substring(0, 50),
           // 計算收藏數
-          favoritedCount: resaurant.FavoritedUsers.length,
+          favoritedCount: restaurant.FavoritedUsers.length,
           // 判斷目前登入使用者是否已追蹤該 user 物件
-          isLiked: req.user.LikedRestaurants.some(f => f.id === resaurant.id)
+          isFavorited: req.user && req.user.FavoritedRestaurants.some(f => f.id === restaurant.id)
         }))
           .sort((a, b) => b.favoritedCount - a.favoritedCount)
-        res.render('top-restaurants', { resaurants })
+        res.render('top-restaurants', { restaurants })
       })
       .catch(err => next(err))
   }

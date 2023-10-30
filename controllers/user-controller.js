@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs') // 載入 bcrypt
 const { imgurFileHandler } = require('../helpers/file-helpers')
-const { User, Restaurant, Favorite, Like } = require('../models')
+const { User, Restaurant, Favorite, Like, Followship } = require('../models')
 const userController = {
   signUpPage: (req, res) => {
     res.render('signup')
